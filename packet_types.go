@@ -13,6 +13,22 @@ type FieldReader interface {
 	io.Reader
 }
 
+// Field represents a packet field
+type Field interface {
+	Encodable
+	Decodable
+}
+
+// Encodable represents an encodable field
+type Encodable interface {
+	Encode() []byte
+}
+
+// Decodable represents an decodable field
+type Decodable interface {
+	Decode(reader FieldReader) error
+}
+
 type (
 	Boolean       bool
 	Byte          int8
