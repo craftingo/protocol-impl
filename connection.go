@@ -45,7 +45,7 @@ func (connection *Connection) SetThreshold(threshold int) {
 	connection.threshold = threshold
 }
 
-// SetCipher defines the cipher streams to a Minecraft connection
+// SetCipher defines the cipher streams for a Minecraft connection
 func (connection *Connection) SetCipher(encodeStream, decodeStream cipher.Stream) {
 	connection.ByteReader = bufio.NewReader(cipher.StreamReader{
 		S: decodeStream,
