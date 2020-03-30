@@ -2,6 +2,7 @@ package protocol_impl
 
 import (
 	"errors"
+	"github.com/google/uuid"
 	"io"
 	"math"
 )
@@ -31,7 +32,7 @@ type (
 		X, Y, Z int
 	}
 	Angle int8
-	// TODO: Add UUID data type
+	UUID uuid.UUID
 	// TODO: Add NBT data type
 	ByteArray []byte
 )
@@ -360,6 +361,17 @@ func (value *Position) Decode(reader FieldReader) error {
 
 	value.X, value.Y, value.Z = x, y, z
 	return nil
+}
+
+// Encode a UUID
+func (value UUID) Encode() []byte {
+	return value[:]
+}
+
+// Decode a UUID
+func (value *UUID) Decode(reader FieldReader) error {
+	_, err := io.ReadFull(reader, (*value)[:])
+	return err
 }
 
 // Encode a wrapped byte array
