@@ -48,7 +48,7 @@ type (
 		X, Y, Z int
 	}
 	Angle int8
-	UUID uuid.UUID
+	UUID  uuid.UUID
 	// TODO: Add NBT data type
 	ByteArray []byte
 )
