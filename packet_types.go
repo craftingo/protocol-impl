@@ -234,11 +234,13 @@ func (value String) Encode() (encoded []byte) {
 // Decode a wrapped string
 func (value *String) Decode(reader FieldReader) error {
 	var stringLength VarInt
-	err := stringLength.Decode(reader); if err != nil {
+	err := stringLength.Decode(reader)
+	if err != nil {
 		return err
 	}
 
-	byteArray, err := ReadNBytes(reader, int(stringLength)); if err != nil {
+	byteArray, err := ReadNBytes(reader, int(stringLength))
+	if err != nil {
 		return err
 	}
 
@@ -368,7 +370,8 @@ func (value ByteArray) Encode() []byte {
 // Decode a wrapped byte array
 func (value *ByteArray) Decode(reader FieldReader) error {
 	var arrayLength VarInt
-	err := arrayLength.Decode(reader); if err != nil {
+	err := arrayLength.Decode(reader)
+	if err != nil {
 		return err
 	}
 
