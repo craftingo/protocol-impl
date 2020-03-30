@@ -2,6 +2,7 @@ package protocol_impl
 
 import (
 	"bufio"
+	"crypto/cipher"
 	"io"
 	"net"
 )
@@ -42,6 +43,19 @@ func (listener Listener) Accept() (Connection, error) {
 // SetThreshold sets the threshold for a Minecraft connection
 func (connection *Connection) SetThreshold(threshold int) {
 	connection.threshold = threshold
+}
+
+// SetCipher defines the cipher streams to a Minecraft connection
+func (connection *Connection) SetCypher(encodeStream, decodeStream cipher.Stream) {
+	connection.ByteReader = bufio.NewReader(cipher.StreamReader{
+		S: decodeStream,
+		R: connection.Socket,
+	})
+
+	connection.Writer = cipher.StreamWriter{
+		S: encodeStream,
+		W: connection.Socket,
+	}
 }
 
 // ReadPacket reads a packet from a Minecraft connection
